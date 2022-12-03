@@ -10,7 +10,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    private let initialBuilder = ViewController() // SendTransactionsBuilder()
+    private let initialBuilder = MainBuilder()
 
     func application(
         _ application: UIApplication,
@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         window = UIWindow()
 
-        window?.rootViewController = initialBuilder //.build()
+        window?.rootViewController = initialBuilder.build()
 
         return true
     }

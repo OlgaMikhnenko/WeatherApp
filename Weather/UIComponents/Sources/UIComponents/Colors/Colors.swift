@@ -14,6 +14,7 @@ public class Colors {
         public static let neutralG700 = UIColor(red: 0.19, green: 0.19, blue: 0.21, alpha: 1.00)
         public static let neutralG800 = UIColor.black.withAlphaComponent(0.9)
         public static let neutralG500 = UIColor.black.withAlphaComponent(0.6)
+        public static let neutralG400 = UIColor.black.withAlphaComponent(0.2)
     }
     
     public enum Inverse {

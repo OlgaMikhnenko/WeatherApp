@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Helga on 03.12.22.
+  
+*/
+
+"FeelsLikeComponent.header" = "Feels like";
+
+"SunMovementComponent.header" = "Sun";
+"SunMovementComponent.sunrise" = "Sunrise";
+"SunMovementComponent.sunset" = "Sunset";
+
+"KeyWords.sun" = "sand clear";
+"KeyWords.rain" = "thunderstorm drizzle rain squall tornado";
+"KeyWords.cloud" = "mist smoke haze dust fog ash clouds";
+"KeyWords.snow" = "snow";

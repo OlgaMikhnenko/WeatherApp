@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Network
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let service = WeatherService()
+        let coordinates: CoordinatesModel = CoordinatesModel(latitude: 44.55, longtitude: 44.34)
+        service.getCurrentWeather(coordinates: coordinates) { model in
+            print(model)
+        }
     }
 
 

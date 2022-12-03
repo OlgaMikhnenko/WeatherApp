@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIImage {
+public extension UIImage {
 
     func maskWithColor(_ color: UIColor) -> UIImage? {
         
