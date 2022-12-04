@@ -13,7 +13,7 @@ final class MainPresenter: MainPresenterProtocol {
     
     func present(_ data: MainDataFlow.Data) {
         switch data {
-        case .parceCurrentWeather(let model):
+        case .parseCurrentWeather(let model):
             let sunrise = TimeInterval(
                 timestamp: model.system.sunrise,
                 timezoneOffset: model.timezone

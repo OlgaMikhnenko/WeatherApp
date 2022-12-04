@@ -16,7 +16,8 @@ final class MainInteractor: NSObject, MainInteractorProtocol {
     
     let presenter: MainPresenterProtocol
     
-    private let networkService = WeatherService()
+    private let networkService: WeatherServiceProtocol
+    
     private let locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -26,8 +27,12 @@ final class MainInteractor: NSObject, MainInteractorProtocol {
     
     private let dataQueue = DispatchQueue(label: "com.module.MainInteractor")
     
-    init(presenter: MainPresenterProtocol) {
+    init(
+        presenter: MainPresenterProtocol,
+        networkService: WeatherServiceProtocol
+    ) {
         self.presenter = presenter
+        self.networkService = networkService
         super.init()
         locationManager.delegate = self
     }
@@ -54,7 +59,7 @@ final class MainInteractor: NSObject, MainInteractorProtocol {
             latitude: location.coordinate.latitude,
             longtitude: location.coordinate.longitude
         )) { [weak self] model in
-            self?.presenter.present(.parceCurrentWeather(model))
+            self?.presenter.present(.parseCurrentWeather(model))
         }
     }
     

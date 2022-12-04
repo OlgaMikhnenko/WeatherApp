@@ -15,7 +15,7 @@ enum MainDataFlow {
     }
         
     enum Data {
-        case parceCurrentWeather(CurrentWeatherModel)
+        case parseCurrentWeather(CurrentWeatherModel)
         case prepareForecast(ForecastModel)
     }
     

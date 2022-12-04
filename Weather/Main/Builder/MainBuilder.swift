@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Network
 
 final class MainBuilder {
     func build() -> UIViewController {
         let presenter = MainPresenter()
-        let interactor = MainInteractor(presenter: presenter)
+        let networkService = WeatherService()
+        let interactor = MainInteractor(presenter: presenter, networkService: networkService)
         let controller = MainViewController(interactor: interactor)
         presenter.controller = controller
         
