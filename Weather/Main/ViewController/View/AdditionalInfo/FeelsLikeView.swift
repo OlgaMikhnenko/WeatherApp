@@ -43,7 +43,7 @@ final class FeelsLikeView: UIView {
     }
     
     func setUpTemperature(_ temperature: Int) {
-        temperatureLabel.text = "\(temperature) °"
+        temperatureLabel.text = "\(temperature)°"
     }
     
     private func setUpLayout() {

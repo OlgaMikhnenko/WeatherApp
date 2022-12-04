@@ -15,4 +15,12 @@ public extension DateFormatter {
         formatter.locale = NSLocale.current
         return formatter
     }
+    
+    static var dateForecastDisplay: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.locale = NSLocale.current
+        return formatter
+    }
 }

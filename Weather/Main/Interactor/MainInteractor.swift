@@ -28,8 +28,13 @@ final class MainInteractor: MainInteractorProtocol {
     private func applyEvent(_ event: MainDataFlow.Event) {
         switch event {
         case .getCurrentWeather:
-            networkService.getCurrentWeather(coordinates: CoordinatesModel(latitude: 19.69, longtitude: -99.7)) { [weak self] model in
+            networkService.getCurrentWeather(coordinates: CoordinatesModel(latitude: 50.11, longtitude: 8.68)) { [weak self] model in
                 self?.presenter.present(.parceCurrentWeather(model))
+            }
+            
+        case .getForecast:
+            networkService.getForecast(coordinates: CoordinatesModel(latitude: 50.11, longtitude: 8.68)) { [weak self] model in
+                self?.presenter.present(.prepareForecast(model))
             }
         }
     }

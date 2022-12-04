@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import MapKit
 
 extension MainView {
     struct ViewModel {
@@ -17,13 +18,14 @@ extension MainView {
         let sunriseTime: String?
         let sunsetTime: String?
         let weatherState: WeatherState
+        let timeState: TimeState
     }
 }
 
 final class MainView: UIView {
     private enum Constants: Grid {
-        static let hoursForecastCollectionViewHeight: CGFloat = 120
-        static let daysForecastCollectionViewHeight: CGFloat = 600
+        static let hoursForecastCollectionViewHeight: CGFloat = 100
+        static let daysForecastCollectionViewHeight: CGFloat = 300
         static let mapViewHeight: CGFloat = 300
         static let additionalInfoCornerRadius: CGFloat = 16
     }
@@ -56,24 +58,42 @@ final class MainView: UIView {
     }()
     
     lazy var hoursForecastCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(width: 50, height: 80)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-//        tableView.register(CountryCell.self, forCellReuseIdentifier: CountryCell.ViewModel.reuseIdentifier)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(HourForecastCell.self, forCellWithReuseIdentifier: HourForecastCell.ViewModel.reuseIdentifier)
+        collectionView.backgroundColor = Colors.Neutral.neutralG400
+        collectionView.layer.cornerRadius = Constants.additionalInfoCornerRadius
         return collectionView
     }()
     
     lazy var daysForecastCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(
+            width: UIScreen.main.bounds.width - 2 * Constants.sSpace,
+            height: 60)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-//        tableView.register(CountryCell.self, forCellReuseIdentifier: CountryCell.ViewModel.reuseIdentifier)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(DayForecastCell.self, forCellWithReuseIdentifier: DayForecastCell.ViewModel.reuseIdentifier)
+        collectionView.backgroundColor = Colors.Neutral.neutralG400
+        collectionView.layer.cornerRadius = Constants.additionalInfoCornerRadius
         return collectionView
     }()
     
-    lazy var mapView: UIView = {
-        let view = UIView()
-        return view
+    private let mapView : MKMapView = {
+            let map = MKMapView()
+//            map.overrideUserInterfaceStyle = .dark
+            map.layer.cornerRadius = Constants.additionalInfoCornerRadius
+            return map
     }()
     
     private lazy var feelsLikeView: FeelsLikeView = {
@@ -102,7 +122,7 @@ final class MainView: UIView {
     
     func configure(with model: ViewModel) {
         locationLabel.text = model.location
-        temperatureLabel.text = "\(model.temperature) °"
+        temperatureLabel.text = "\(model.temperature)°"
         descriptionLabel.text = model.description
         feelsLikeView.setUpTemperature(model.feelsLike)
         sunTimingView.setUpTimes(
@@ -110,6 +130,14 @@ final class MainView: UIView {
             sunset: model.sunsetTime ?? ""
         )
         backgroundImageView.image = model.weatherState.image
+        
+        switch model.timeState {
+        case .day:
+            
+            mapView.overrideUserInterfaceStyle = .light
+        case .night:
+            mapView.overrideUserInterfaceStyle = .dark
+        }
     }
     
     private func setUpLayout() {

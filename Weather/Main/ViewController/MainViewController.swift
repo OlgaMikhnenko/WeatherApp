@@ -11,6 +11,8 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     let interactor: MainInteractorProtocol
     private let contentView = MainView()
+    private let hoursDataSource = HourForecastCollectionDataSource()
+    private let daysDataSource = DayForecastCollectionDataSource()
     
     init(interactor: MainInteractorProtocol) {
         self.interactor = interactor
@@ -27,7 +29,16 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.hoursForecastCollectionView.dataSource = hoursDataSource
+        contentView.hoursForecastCollectionView.delegate = hoursDataSource
+        contentView.daysForecastCollectionView.dataSource = daysDataSource
+        contentView.daysForecastCollectionView.delegate = daysDataSource
         interactor.execute(.getCurrentWeather)
+        interactor.execute(.getForecast)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func apply(_ state: MainDataFlow.State) {
@@ -50,6 +61,14 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         switch state {
         case .updateMainView(let viewModel):
             contentView.configure(with: viewModel)
+            
+        case .updateHoursForecast(let viewModels):
+            hoursDataSource.viewModels = viewModels
+            contentView.hoursForecastCollectionView.reloadData()
+            
+        case .updateDaysForecast(let viewModels):
+            daysDataSource.viewModels = viewModels
+            contentView.daysForecastCollectionView.reloadData()
         }
     }
     

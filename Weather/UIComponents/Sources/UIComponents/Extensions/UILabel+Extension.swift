@@ -19,3 +19,4 @@ public extension UILabel {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
     }
 }
+

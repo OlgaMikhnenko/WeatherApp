@@ -8,7 +8,7 @@
 import UIKit
 import UIComponents
 
-enum WeatherState: CaseIterable {
+enum WeatherState: String, CaseIterable {
     case sunDay
     case sunNight
     case cloudDay
@@ -63,4 +63,21 @@ enum WeatherState: CaseIterable {
             
         }
     }
+    
+    var icon: UIImage? {
+        switch self {
+        case .sunDay, .sunNight:
+            return UIImage(systemName: "sun.max.fill")?.withTintColor(.yellow, renderingMode: .alwaysOriginal)
+            
+        case .cloudDay, .cloudNight:
+            return UIImage(systemName: "cloud.fill")?.withTintColor(Colors.Inverse.inverseA00, renderingMode: .alwaysOriginal)
+            
+        case .rainDay, .rainNight:
+            return UIImage(systemName: "cloud.rain.fill")?.withTintColor(Colors.Inverse.inverseA02, renderingMode: .alwaysOriginal)
+            
+        case .snowDay, .snowNight:
+            return UIImage(systemName: "cloud.snow.fill")?.withTintColor(Colors.Inverse.inverseA00, renderingMode: .alwaysOriginal)
+        }
+    }
+    
 }
