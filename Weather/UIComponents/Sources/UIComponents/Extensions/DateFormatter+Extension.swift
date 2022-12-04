@@ -23,4 +23,12 @@ public extension DateFormatter {
         formatter.locale = NSLocale.current
         return formatter
     }
+    
+    static var dateDayNameDisplay: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.locale = NSLocale.current
+        return formatter
+    }
 }

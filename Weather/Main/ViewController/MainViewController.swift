@@ -31,8 +31,8 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         super.viewDidLoad()
         contentView.hoursForecastCollectionView.dataSource = hoursDataSource
         contentView.hoursForecastCollectionView.delegate = hoursDataSource
-        contentView.daysForecastCollectionView.dataSource = daysDataSource
-        contentView.daysForecastCollectionView.delegate = daysDataSource
+        contentView.daysForecastTableView.dataSource = daysDataSource
+        contentView.daysForecastTableView.delegate = daysDataSource
         interactor.execute(.getCurrentWeather)
         interactor.execute(.getForecast)
     }
@@ -68,7 +68,7 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
             
         case .updateDaysForecast(let viewModels):
             daysDataSource.viewModels = viewModels
-            contentView.daysForecastCollectionView.reloadData()
+            contentView.daysForecastTableView.reloadData()
         }
     }
     

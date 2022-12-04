@@ -26,4 +26,8 @@ public enum AppStrings {
         case snow = "KeyWords.snow"
     }
     
+    enum ForecastComponent: String, LocalizationResourceConvertable {
+        case dayForecast = "ForecastComponent.dayForecast"
+    }
+    
 }

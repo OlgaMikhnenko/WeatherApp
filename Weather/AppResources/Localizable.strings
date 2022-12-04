@@ -16,3 +16,5 @@
 "KeyWords.rain" = "thunderstorm drizzle rain squall tornado";
 "KeyWords.cloud" = "mist smoke haze dust fog ash clouds";
 "KeyWords.snow" = "snow";
+
+"ForecastComponent.dayForecast" = "4-day forecast";

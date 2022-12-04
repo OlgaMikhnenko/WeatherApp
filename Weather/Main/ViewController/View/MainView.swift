@@ -25,7 +25,7 @@ extension MainView {
 final class MainView: UIView {
     private enum Constants: Grid {
         static let hoursForecastCollectionViewHeight: CGFloat = 100
-        static let daysForecastCollectionViewHeight: CGFloat = 300
+        static let daysForecastTableViewHeight: CGFloat = 270
         static let mapViewHeight: CGFloat = 300
         static let additionalInfoCornerRadius: CGFloat = 16
     }
@@ -60,40 +60,38 @@ final class MainView: UIView {
     lazy var hoursForecastCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 0
         layout.itemSize = CGSize(width: 50, height: 80)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = .zero
         collectionView.register(HourForecastCell.self, forCellWithReuseIdentifier: HourForecastCell.ViewModel.reuseIdentifier)
         collectionView.backgroundColor = Colors.Neutral.neutralG400
         collectionView.layer.cornerRadius = Constants.additionalInfoCornerRadius
         return collectionView
     }()
     
-    lazy var daysForecastCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.minimumLineSpacing = 0
-        layout.itemSize = CGSize(
-            width: UIScreen.main.bounds.width - 2 * Constants.sSpace,
-            height: 60)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(DayForecastCell.self, forCellWithReuseIdentifier: DayForecastCell.ViewModel.reuseIdentifier)
-        collectionView.backgroundColor = Colors.Neutral.neutralG400
-        collectionView.layer.cornerRadius = Constants.additionalInfoCornerRadius
-        return collectionView
+    lazy var daysForecastTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(DayForecastCell.self, forCellReuseIdentifier: DayForecastCell.ViewModel.reuseIdentifier)
+        tableView.backgroundColor = Colors.Neutral.neutralG400
+        tableView.layer.cornerRadius = Constants.additionalInfoCornerRadius
+        tableView.showsVerticalScrollIndicator = false
+        let header = AdditionalSectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+        header.configure(
+            image: UIImage(systemName: "calendar"),
+            text: AppStrings.ForecastComponent.dayForecast.get()
+        )
+        tableView.tableHeaderView = header
+        return tableView
     }()
     
     private let mapView : MKMapView = {
-            let map = MKMapView()
-//            map.overrideUserInterfaceStyle = .dark
-            map.layer.cornerRadius = Constants.additionalInfoCornerRadius
-            return map
+        let map = MKMapView()
+        map.layer.cornerRadius = Constants.additionalInfoCornerRadius
+        map.showsUserLocation = true
+        return map
     }()
     
     private lazy var feelsLikeView: FeelsLikeView = {
@@ -160,7 +158,7 @@ final class MainView: UIView {
         
         [
             hoursForecastCollectionView,
-            daysForecastCollectionView,
+            daysForecastTableView,
             mapView,
             feelsLikeView,
             sunTimingView
@@ -200,12 +198,12 @@ final class MainView: UIView {
             hoursForecastCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             hoursForecastCollectionView.heightAnchor.constraint(equalToConstant: Constants.hoursForecastCollectionViewHeight),
             
-            daysForecastCollectionView.topAnchor.constraint(equalTo: hoursForecastCollectionView.bottomAnchor, constant: Constants.lSpace),
-            daysForecastCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
-            daysForecastCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
-            daysForecastCollectionView.heightAnchor.constraint(equalToConstant: Constants.daysForecastCollectionViewHeight),
+            daysForecastTableView.topAnchor.constraint(equalTo: hoursForecastCollectionView.bottomAnchor, constant: Constants.lSpace),
+            daysForecastTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
+            daysForecastTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
+            daysForecastTableView.heightAnchor.constraint(equalToConstant: Constants.daysForecastTableViewHeight),
             
-            mapView.topAnchor.constraint(equalTo: daysForecastCollectionView.bottomAnchor, constant: Constants.lSpace),
+            mapView.topAnchor.constraint(equalTo: daysForecastTableView.bottomAnchor, constant: Constants.lSpace),
             mapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
             mapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             mapView.heightAnchor.constraint(equalToConstant: Constants.mapViewHeight),

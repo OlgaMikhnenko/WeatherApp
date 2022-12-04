@@ -29,6 +29,19 @@ final class MainPresenter: MainPresenterProtocol {
                 timezoneOffset: model.timezone
             )
             
+            let weatherState = defineWeatherState(
+                description: model.weather.first?.main,
+                timestamp: timestamp,
+                sunrise: sunrise,
+                sunset: sunset
+            )
+            
+            let timeState: TimeState = weatherState == .rainDay ? .night : defineTimeState(
+                date: Date(timeIntervalSince1970: timestamp),
+                sunrise: Date(timeIntervalSince1970: sunrise),
+                sunset: Date(timeIntervalSince1970: sunset)
+            )
+            
             let viewModel = MainView.ViewModel(
                 location: model.name,
                 temperature: Int(model.main.temperature),
@@ -36,34 +49,28 @@ final class MainPresenter: MainPresenterProtocol {
                 feelsLike: Int(model.main.feelsLike),
                 sunriseTime: dateForDisplay(timestamp: sunrise),
                 sunsetTime: dateForDisplay(timestamp: sunset),
-                weatherState: defineWeatherState(
-                    description: model.weather.first?.main,
-                    timestamp: timestamp,
-                    sunrise: sunrise,
-                    sunset: sunset
-                ),
-                timeState: defineTimeState(
-                    date: Date(timeIntervalSince1970: timestamp),
-                    sunrise: Date(timeIntervalSince1970: sunrise),
-                    sunset: Date(timeIntervalSince1970: sunset)
-                )
+                weatherState: weatherState,
+                timeState: timeState
             )
             controller?.apply(.success(.updateMainView(viewModel)))
             
         case .prepareForecast(let model):
             var hourForecastModels: [HourForecastCell.ViewModel]  = []
+            var dayForecastModels: [DayForecastCell.ViewModel]  = []
+            
+            let sunrise = TimeInterval(
+                timestamp: model.city.sunrise,
+                timezoneOffset: model.city.timezone
+            )
+            
+            let sunset = TimeInterval(
+                timestamp: model.city.sunset,
+                timezoneOffset: model.city.timezone
+            )
+            
             for state in model.list {
                 let timestamp = TimeInterval(
                     timestamp: state.date,
-                    timezoneOffset: model.city.timezone
-                )
-                let sunrise = TimeInterval(
-                    timestamp: model.city.sunrise,
-                    timezoneOffset: model.city.timezone
-                )
-                
-                let sunset = TimeInterval(
-                    timestamp: model.city.sunset,
                     timezoneOffset: model.city.timezone
                 )
                 if isDateInside24Hours(Date(timeIntervalSince1970: timestamp)) {
@@ -79,20 +86,66 @@ final class MainPresenter: MainPresenterProtocol {
                         temperature: Int(state.main.temperature)
                     )
                     hourForecastModels.append(stateModel)
+                } else {
+                    let weatherState = defineWeatherState(
+                        description: state.weather.first?.main,
+                        timestamp: timestamp,
+                        sunrise: sunrise,
+                        sunset: sunset
+                    )
+                    let stateModel = DayForecastCell.ViewModel(
+                        day: defineDayName(timestamp: timestamp),
+                        icon: weatherState.icon,
+                        temperatureMin: Int(state.main.tempMin),
+                        temperatureMax: Int(state.main.tempMax)
+                    )
+                    dayForecastModels.append(stateModel)
                 }
             }
             
+            let groupedDayForecast = groupByDays(models: dayForecastModels)
             controller?.apply(.success(.updateHoursForecast(hourForecastModels)))
-
-            controller?.apply(.success(.updateDaysForecast([
-                DayForecastCell.ViewModel(day: "PN", icon: UIImage(systemName: "thermometer.medium"), temperatureMin: 1, temperatureMax: 1),
-                DayForecastCell.ViewModel(day: "PN", icon: UIImage(systemName: "thermometer.medium"), temperatureMin: 1, temperatureMax: 1),
-                DayForecastCell.ViewModel(day: "PN", icon: UIImage(systemName: "thermometer.medium"), temperatureMin: 1, temperatureMax: 1),
-                DayForecastCell.ViewModel(day: "PN", icon: UIImage(systemName: "thermometer.medium"), temperatureMin: 1, temperatureMax: 1),
-                DayForecastCell.ViewModel(day: "PN", icon: UIImage(systemName: "thermometer.medium"), temperatureMin: 1, temperatureMax: 1)
-            ])))
+            controller?.apply(.success(.updateDaysForecast(groupedDayForecast)))
             
         }
+    }
+    
+    private func groupByDays(models: [DayForecastCell.ViewModel]) -> [DayForecastCell.ViewModel] {
+        var groupedDayForecast: [DayForecastCell.ViewModel] = []
+        guard
+            let firstModel = models.first,
+            let firstDay = models.first?.day else { return groupedDayForecast }
+        var currentDay = firstDay
+        var minTemperature = firstModel.temperatureMin
+        var maxTemperaute = firstModel.temperatureMax
+        for model in models {
+            if model.day != currentDay {
+                let stateModel = DayForecastCell.ViewModel(
+                    day: currentDay,
+                    icon: model.icon,
+                    temperatureMin: minTemperature,
+                    temperatureMax: maxTemperaute
+                )
+                groupedDayForecast.append(stateModel)
+                currentDay = model.day ?? ""
+                minTemperature = model.temperatureMin
+                maxTemperaute = model.temperatureMax
+            } else {
+                if maxTemperaute < model.temperatureMax {
+                    maxTemperaute = model.temperatureMax
+                }
+                if minTemperature > model.temperatureMin {
+                    minTemperature = model.temperatureMin
+                }
+            }
+        }
+        return groupedDayForecast
+    }
+    
+    private func defineDayName(timestamp: TimeInterval) -> String? {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let utcDateFormatter = DateFormatter.dateDayNameDisplay
+        return utcDateFormatter.string(from: date)
     }
     
     private func isDateInside24Hours(_ date: Date) -> Bool {

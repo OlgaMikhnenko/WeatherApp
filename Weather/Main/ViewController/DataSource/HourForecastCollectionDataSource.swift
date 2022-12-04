@@ -13,7 +13,6 @@ final class HourForecastCollectionDataSource: NSObject {
 }
 
 extension HourForecastCollectionDataSource: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModels.count
     }

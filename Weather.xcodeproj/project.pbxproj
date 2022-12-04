@@ -38,6 +38,7 @@
 		A8F35A8F293BFED000C80D97 /* HourForecastCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F35A8E293BFED000C80D97 /* HourForecastCollectionDataSource.swift */; };
 		A8F35A91293C052400C80D97 /* DayForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F35A90293C052400C80D97 /* DayForecastCell.swift */; };
 		A8F35A93293C074000C80D97 /* DayForecastCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F35A92293C074000C80D97 /* DayForecastCollectionDataSource.swift */; };
+		A8F35A96293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F35A95293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		A8F35A8E293BFED000C80D97 /* HourForecastCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourForecastCollectionDataSource.swift; sourceTree = "<group>"; };
 		A8F35A90293C052400C80D97 /* DayForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCell.swift; sourceTree = "<group>"; };
 		A8F35A92293C074000C80D97 /* DayForecastCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCollectionDataSource.swift; sourceTree = "<group>"; };
+		A8F35A95293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalSectionHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 		A8B3A881293965F9006ABF9A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A8F35A94293CDE8A00C80D97 /* Headers */,
 				A8B3A893293B9E1E006ABF9A /* AdditionalInfo */,
 				A8B3A882293965F9006ABF9A /* MainView.swift */,
 			);
@@ -313,6 +316,14 @@
 				A8F35A92293C074000C80D97 /* DayForecastCollectionDataSource.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		A8F35A94293CDE8A00C80D97 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A8F35A95293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +474,7 @@
 				A8F35A8A293BF31400C80D97 /* TimeState.swift in Sources */,
 				A8B3A8A2293BA729006ABF9A /* SunTimingView.swift in Sources */,
 				A8314676293745A200778640 /* ViewController.swift in Sources */,
+				A8F35A96293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift in Sources */,
 				A8B3A889293965F9006ABF9A /* MainDataFlow.swift in Sources */,
 				A8B3A88F293965F9006ABF9A /* MainBuilder.swift in Sources */,
 				A8B3A88C293965F9006ABF9A /* MainViewController.swift in Sources */,

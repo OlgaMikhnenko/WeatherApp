@@ -10,14 +10,14 @@ import UIComponents
 
 extension DayForecastCell {
     struct ViewModel: CellRepresentable {
-        let day: String
+        let day: String?
         let icon: UIImage?
         let temperatureMin: Int
         let temperatureMax: Int
     }
 }
 
-final class DayForecastCell: UICollectionViewCell {
+final class DayForecastCell: UITableViewCell {
     private enum Constants: Grid { }
     
     private let dayNameLabel: UILabel = {
@@ -54,8 +54,8 @@ final class DayForecastCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpLayout()
     }
     
@@ -71,6 +71,8 @@ final class DayForecastCell: UICollectionViewCell {
     }
     
     private func setUpLayout() {
+        backgroundColor = .clear
+        selectionStyle = .none
         [
             dayNameLabel,
             weatherIcon,
@@ -84,12 +86,12 @@ final class DayForecastCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             dayNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            dayNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.lSpace),
+            dayNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.mSpace),
             
             weatherIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherIcon.widthAnchor.constraint(equalToConstant: Constants.mSize.width),
             weatherIcon.heightAnchor.constraint(equalToConstant: Constants.mSize.height),
-            weatherIcon.leadingAnchor.constraint(equalTo: dayNameLabel.trailingAnchor, constant: Constants.lSpace),
+            weatherIcon.trailingAnchor.constraint(equalTo: temperatureMinLabel.leadingAnchor, constant: -Constants.xlSpace),
             
             temperatureMinLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             temperatureMinLabel.trailingAnchor.constraint(equalTo: arrowIcon.leadingAnchor, constant: -Constants.lSpace),
