@@ -12,7 +12,7 @@ final class FeelsLikeView: UIView {
     private enum Constants: Grid { }
     
     private let headerIcon: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(withShadow: true)
         imageView.image = UIImage(systemName: "thermometer.medium")
         imageView.tintColor = Colors.Inverse.inverseA01
         return imageView

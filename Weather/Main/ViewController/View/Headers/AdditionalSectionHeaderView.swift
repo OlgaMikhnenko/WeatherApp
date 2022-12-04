@@ -20,7 +20,7 @@ final class AdditionalSectionHeaderView: UIView {
     static let identifier = "AdditionalSectionHeaderView"
     
     private let headerIcon: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(withShadow: true)
         imageView.tintColor = Colors.Inverse.inverseA01
         return imageView
     }()
@@ -63,7 +63,7 @@ final class AdditionalSectionHeaderView: UIView {
         NSLayoutConstraint.activate([
             headerIcon.topAnchor.constraint(equalTo: topAnchor, constant: Constants.xsSpace),
             headerIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.mSpace),
-            headerIcon.widthAnchor.constraint(equalToConstant: Constants.sSize.width),
+            headerIcon.widthAnchor.constraint(equalToConstant: Constants.mSize.width),
             headerIcon.heightAnchor.constraint(equalToConstant: Constants.mSize.height),
             
             headerLabel.centerYAnchor.constraint(equalTo: headerIcon.centerYAnchor),

@@ -19,7 +19,7 @@ public class Colors {
     
     public enum Inverse {
         public static let inverseA00 = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 0.86)
-        public static let inverseA01 = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 0.50)
+        public static let inverseA01 = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 0.60)
         public static let inverseA02 = UIColor(red: 0.49, green: 0.80, blue: 0.87, alpha: 1.00)
     }
     

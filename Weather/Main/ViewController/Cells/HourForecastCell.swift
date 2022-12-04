@@ -27,7 +27,7 @@ final class HourForecastCell: UICollectionViewCell {
     }()
     
     private let weatherIcon: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(withShadow: true)
         imageView.tintColor = Colors.Inverse.inverseA00
         return imageView
     }()
@@ -52,7 +52,7 @@ final class HourForecastCell: UICollectionViewCell {
     func configure(with model: ViewModel) {
         timeLabel.text = model.time
         weatherIcon.image = model.icon
-        temperatureLabel.text = "\(model.temperature) °"
+        temperatureLabel.text = "\(model.temperature)°"
     }
     
     private func setUpLayout() {

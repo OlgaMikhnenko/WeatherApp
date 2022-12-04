@@ -1,5 +1,5 @@
 //
-//  UILabel+Extension.swift
+//  UIView+Extension.swift
 //  
 //
 //  Created by Helga on 03.12.22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UILabel {
+public extension UIView {
     convenience init(withShadow: Bool) {
         self.init()
         guard withShadow else { return }
@@ -17,5 +17,6 @@ public extension UILabel {
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.masksToBounds = false
     }
+    
 }
 

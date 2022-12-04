@@ -8,11 +8,15 @@
 import UIKit
 
 final class MainViewController: UIViewController, MainViewControllerProtocol {
+    private enum Constants {
+        static let timerValue = 10.0
+    }
     
     let interactor: MainInteractorProtocol
     private let contentView = MainView()
     private let hoursDataSource = HourForecastCollectionDataSource()
     private let daysDataSource = DayForecastCollectionDataSource()
+    private var timer = Timer()
     
     init(interactor: MainInteractorProtocol) {
         self.interactor = interactor
@@ -35,6 +39,18 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         contentView.daysForecastTableView.delegate = daysDataSource
         interactor.execute(.getCurrentWeather)
         interactor.execute(.getForecast)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor.execute(.getCurrentWeather)
+        interactor.execute(.getForecast)
+        setUpTimer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer.invalidate()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -77,5 +93,21 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         default:
             break
         }
+    }
+    
+    private func setUpTimer() {
+        timer = Timer.scheduledTimer(
+            timeInterval: Constants.timerValue,
+            target: self,
+            selector: #selector(timerEvent),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    @objc
+    func timerEvent() {
+        interactor.execute(.getCurrentWeather)
+        interactor.execute(.getForecast)
     }
 }

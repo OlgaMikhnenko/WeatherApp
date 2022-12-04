@@ -28,7 +28,7 @@ final class DayForecastCell: UITableViewCell {
     }()
     
     private let weatherIcon: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(withShadow: true)
         imageView.tintColor = Colors.Inverse.inverseA00
         return imageView
     }()
@@ -41,7 +41,7 @@ final class DayForecastCell: UITableViewCell {
     }()
     
     private let arrowIcon: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(withShadow: true)
         imageView.tintColor = Colors.Inverse.inverseA00
         imageView.image = UIImage(systemName: "arrow.left.arrow.right")
         return imageView
@@ -91,7 +91,7 @@ final class DayForecastCell: UITableViewCell {
             weatherIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
             weatherIcon.widthAnchor.constraint(equalToConstant: Constants.mSize.width),
             weatherIcon.heightAnchor.constraint(equalToConstant: Constants.mSize.height),
-            weatherIcon.trailingAnchor.constraint(equalTo: temperatureMinLabel.leadingAnchor, constant: -Constants.xlSpace),
+            weatherIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.xxxlSpace),
             
             temperatureMinLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             temperatureMinLabel.trailingAnchor.constraint(equalTo: arrowIcon.leadingAnchor, constant: -Constants.lSpace),
