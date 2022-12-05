@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import Network
 @testable import Weather
 
@@ -25,7 +26,7 @@ class MainInteractorTest: XCTestCase {
         let exp = expectation(description: #function)
         networkService.getCurrentWeatherExecutedAfterCompletion = { exp.fulfill() }
         
-        sut.execute(.getCurrentWeather)
+        sut.execute(.getCurrentWeather(CLLocation(latitude: 50.11, longitude: 8.68)))
         wait(for: [exp], timeout: 1.0)
         
         switch presenter.presentedData {
@@ -40,7 +41,7 @@ class MainInteractorTest: XCTestCase {
         let exp = expectation(description: #function)
         networkService.getForecastWeatherExecutedAfterCompletion = { exp.fulfill() }
         
-        sut.execute(.getForecast)
+        sut.execute(.getForecast(CLLocation(latitude: 50.11, longitude: 8.68)))
         wait(for: [exp], timeout: 1.0)
         
         switch presenter.presentedData {

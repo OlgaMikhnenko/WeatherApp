@@ -6,12 +6,13 @@
 //
 
 import Network
+import CoreLocation
 
 enum MainDataFlow {
     
     enum Event {
-        case getCurrentWeather
-        case getForecast
+        case getCurrentWeather(CLLocation)
+        case getForecast(CLLocation)
     }
         
     enum Data {

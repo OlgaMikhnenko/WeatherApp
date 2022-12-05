@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A8314672293745A200778640 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8314671293745A200778640 /* AppDelegate.swift */; };
-		A8314676293745A200778640 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8314675293745A200778640 /* ViewController.swift */; };
 		A8314679293745A200778640 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8314677293745A200778640 /* Main.storyboard */; };
 		A831467B293745A400778640 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A831467A293745A400778640 /* Assets.xcassets */; };
 		A831467E293745A400778640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A831467C293745A400778640 /* LaunchScreen.storyboard */; };
@@ -67,7 +66,6 @@
 /* Begin PBXFileReference section */
 		A831466E293745A200778640 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8314671293745A200778640 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A8314675293745A200778640 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A8314678293745A200778640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A831467A293745A400778640 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A831467D293745A400778640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				A8B3A896293BA17B006ABF9A /* AppResources */,
 				A8B3A879293965F9006ABF9A /* Main */,
 				A8314671293745A200778640 /* AppDelegate.swift */,
-				A8314675293745A200778640 /* ViewController.swift */,
 				A8314677293745A200778640 /* Main.storyboard */,
 				A831467A293745A400778640 /* Assets.xcassets */,
 				A831467C293745A400778640 /* LaunchScreen.storyboard */,
@@ -539,7 +536,6 @@
 				A8F35A93293C074000C80D97 /* DayForecastCollectionDataSource.swift in Sources */,
 				A8F35A8A293BF31400C80D97 /* TimeState.swift in Sources */,
 				A8B3A8A2293BA729006ABF9A /* SunTimingView.swift in Sources */,
-				A8314676293745A200778640 /* ViewController.swift in Sources */,
 				A8F35A96293CDEAA00C80D97 /* AdditionalSectionHeaderView.swift in Sources */,
 				A8B3A889293965F9006ABF9A /* MainDataFlow.swift in Sources */,
 				A8B3A88F293965F9006ABF9A /* MainBuilder.swift in Sources */,

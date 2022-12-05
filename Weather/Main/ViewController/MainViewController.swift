@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import CoreLocation
 
 final class MainViewController: UIViewController, MainViewControllerProtocol {
     private enum Constants {
         static let timerValue = 10.0
+        static let coordinates = CLLocation(latitude: 50.11, longitude: 8.68)
     }
-    
+   
     let interactor: MainInteractorProtocol
     private let contentView = MainView()
     private let hoursDataSource = HourForecastCollectionDataSource()
     private let daysDataSource = DayForecastCollectionDataSource()
     private var timer = Timer()
+    
+    private let locationManager: CLLocationManager = {
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        return locationManager
+    }()
     
     init(interactor: MainInteractorProtocol) {
         self.interactor = interactor
@@ -37,14 +46,12 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         contentView.hoursForecastCollectionView.delegate = hoursDataSource
         contentView.daysForecastTableView.dataSource = daysDataSource
         contentView.daysForecastTableView.delegate = daysDataSource
-        interactor.execute(.getCurrentWeather)
-        interactor.execute(.getForecast)
+        locationManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor.execute(.getCurrentWeather)
-        interactor.execute(.getForecast)
+        locationManager.requestLocation()
         setUpTimer()
     }
     
@@ -107,7 +114,43 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     @objc
     func timerEvent() {
-        interactor.execute(.getCurrentWeather)
-        interactor.execute(.getForecast)
+        locationManager.requestLocation()
     }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            interactor.execute(.getCurrentWeather(location))
+            interactor.execute(.getForecast(location))
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        debugPrint(error)
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+            case .authorizedAlways:
+                locationManager.requestLocation()
+            
+            case .authorizedWhenInUse:
+                locationManager.requestLocation()
+            
+            case .denied:
+                interactor.execute(.getCurrentWeather(Constants.coordinates))
+                interactor.execute(.getForecast(Constants.coordinates))
+            
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+            
+            case .restricted:
+                interactor.execute(.getCurrentWeather(Constants.coordinates))
+                interactor.execute(.getForecast(Constants.coordinates))
+        }
+    }
+
 }
