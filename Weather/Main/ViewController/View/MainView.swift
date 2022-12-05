@@ -198,24 +198,24 @@ final class MainView: UIView {
             hoursForecastCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             hoursForecastCollectionView.heightAnchor.constraint(equalToConstant: Constants.hoursForecastCollectionViewHeight),
             
-            daysForecastTableView.topAnchor.constraint(equalTo: hoursForecastCollectionView.bottomAnchor, constant: Constants.lSpace),
+            daysForecastTableView.topAnchor.constraint(equalTo: hoursForecastCollectionView.bottomAnchor, constant: Constants.xsSpace),
             daysForecastTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
             daysForecastTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             daysForecastTableView.heightAnchor.constraint(equalToConstant: Constants.daysForecastTableViewHeight),
             
-            mapView.topAnchor.constraint(equalTo: daysForecastTableView.bottomAnchor, constant: Constants.lSpace),
+            mapView.topAnchor.constraint(equalTo: daysForecastTableView.bottomAnchor, constant: Constants.xsSpace),
             mapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
             mapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             mapView.heightAnchor.constraint(equalToConstant: Constants.mapViewHeight),
             
-            feelsLikeView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: Constants.lSpace),
+            feelsLikeView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: Constants.xsSpace),
             feelsLikeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.sSpace),
-            feelsLikeView.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Constants.sSpace),
+            feelsLikeView.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Constants.xxsSpace),
             feelsLikeView.heightAnchor.constraint(equalToConstant: Constants.xxxxlSize.height),
             feelsLikeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.sSpace),
             
-            sunTimingView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: Constants.lSpace),
-            sunTimingView.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Constants.sSpace),
+            sunTimingView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: Constants.xsSpace),
+            sunTimingView.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Constants.xxsSpace),
             sunTimingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.sSpace),
             sunTimingView.heightAnchor.constraint(equalToConstant: Constants.xxxxlSize.height),
             sunTimingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.sSpace)
