@@ -20,7 +20,7 @@ public extension UIImage {
     static var imageRainNight: UIImage { UIImage(named: #function, in: BundleProvider.bundle, compatibleWith: nil)! }
     static var imageSnowDay: UIImage { UIImage(named: #function, in: BundleProvider.bundle, compatibleWith: nil)! }
     static var imageSnowNight: UIImage { UIImage(named: #function, in: BundleProvider.bundle, compatibleWith: nil)! }
-
+    
 }
 
 

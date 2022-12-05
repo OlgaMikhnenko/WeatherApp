@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import UIComponents
 import CoreLocation
 
-final class MainViewController: UIViewController, MainViewControllerProtocol {
+final class MainViewController: UIViewController, MainViewControllerProtocol, LoadingSupportableProtocol {
     private enum Constants {
         static let timerValue = 10.0
         static let coordinates = CLLocation(latitude: 50.11, longitude: 8.68)
@@ -19,6 +20,7 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     private let hoursDataSource = HourForecastCollectionDataSource()
     private let daysDataSource = DayForecastCollectionDataSource()
     private var timer = Timer()
+    internal lazy var loaderView = LoaderView()
     
     private let locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -42,6 +44,7 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureLoaderView()
         contentView.hoursForecastCollectionView.dataSource = hoursDataSource
         contentView.hoursForecastCollectionView.delegate = hoursDataSource
         contentView.daysForecastTableView.dataSource = daysDataSource
@@ -51,6 +54,7 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        showLoaderView()
         locationManager.requestLocation()
         setUpTimer()
     }
@@ -84,14 +88,17 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         switch state {
         case .updateMainView(let viewModel):
             contentView.configure(with: viewModel)
+            hideLoaderView()
             
         case .updateHoursForecast(let viewModels):
             hoursDataSource.viewModels = viewModels
             contentView.hoursForecastCollectionView.reloadData()
+            hideLoaderView()
             
         case .updateDaysForecast(let viewModels):
             daysDataSource.viewModels = viewModels
             contentView.daysForecastTableView.reloadData()
+            hideLoaderView()
         }
     }
     
