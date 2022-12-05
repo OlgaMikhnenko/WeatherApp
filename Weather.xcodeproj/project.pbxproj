@@ -76,6 +76,7 @@
 		A8314694293745A400778640 /* WeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A83146A52937483B00778640 /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIComponents; path = Weather/UIComponents; sourceTree = "<group>"; };
 		A8ADF778293DF746002A1F3C /* Network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Network; path = Weather/Network; sourceTree = "<group>"; };
+		A8ADF785293E138B002A1F3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8B3A87B293965F9006ABF9A /* MainDataFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDataFlow.swift; sourceTree = "<group>"; };
 		A8B3A87D293965F9006ABF9A /* MainPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		A8B3A87E293965F9006ABF9A /* MainPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		A8314665293745A200778640 = {
 			isa = PBXGroup;
 			children = (
+				A8ADF785293E138B002A1F3C /* README.md */,
 				A8ADF778293DF746002A1F3C /* Network */,
 				A83146A52937483B00778640 /* UIComponents */,
 				A8314670293745A200778640 /* Weather */,
